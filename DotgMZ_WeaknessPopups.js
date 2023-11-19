@@ -8,7 +8,7 @@ Imported.DotgMZ_WeaknessPopups = true;
 
 var DotgMZ = DotgMZ || {};
 DotgMZ.WeaknessPopups = DotgMZ.WeaknessPopups || {};
-DotgMZ.WeaknessPopups.version = "0.1-alpha";
+DotgMZ.WeaknessPopups.version = "0.11-alpha";
 
 /*~struct~Vector:
  * @param x
@@ -39,7 +39,7 @@ DotgMZ.WeaknessPopups.version = "0.1-alpha";
 
 //-----------------------------------------------------------------------------
 /*:
- * @plugindesc (v.0.0-dev) Create popups that appear in battle when certain 
+ * @plugindesc Create popups that appear in battle when certain 
  * @url https://abcight.com
  * @target MZ
  * @author Team GG

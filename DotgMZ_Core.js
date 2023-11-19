@@ -7,12 +7,10 @@ var Imported = Imported || {};
 Imported.DotgMZ_Core = true;
 
 var DotgMZ = DotgMZ || {};
-DotgMZ.Core = DotgMZ.Core || {};
-DotgMZ.Core.version = "0.1-alpha";
 
 //-----------------------------------------------------------------------------
 /*:
- * @plugindesc (v.0.0-dev) Common utilities for the DOTG plugin collection
+ * @plugindesc Common utilities for the DOTG plugin collection
  * @url https://abcight.com
  * @target MZ
  * @author Team GG
@@ -29,7 +27,7 @@ if(!DotgMZ.Core) {
 		targetLayer: null,
 		battleSpriteMap: {},
 		actors: [],
-		version: "0.0-dev"
+		version: "0.11-alpha"
 	};
 
 	core.makeSprite = function(systemImage) {
