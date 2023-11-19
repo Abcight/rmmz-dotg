@@ -8,7 +8,7 @@ Imported.DotgMZ_WeaknessPopups = true;
 
 var DotgMZ = DotgMZ || {};
 DotgMZ.WeaknessPopups = DotgMZ.WeaknessPopups || {};
-DotgMZ.WeaknessPopups.version = "0.11-alpha";
+DotgMZ.WeaknessPopups.version = "0.12-alpha";
 
 /*~struct~Vector:
  * @param x
@@ -35,6 +35,17 @@ DotgMZ.WeaknessPopups.version = "0.11-alpha";
  * @description What scale should the image be when it first appears?
  * @type struct<Vector>
  * @default {"x": "1.5", "y": "1.5"}
+ * 
+ * @param displacement animation
+ * @description What kind of animation to use for the popup displacement?
+ * @type select
+ * @option ease-in
+ * @value 0
+ * @option ease-out
+ * @value 1
+ * @option linear
+ * @value 2
+ * @default 1
 */
 
 //-----------------------------------------------------------------------------
@@ -121,7 +132,7 @@ DotgMZ.WeaknessPopups.version = "0.11-alpha";
 	criticalOffset.x *= 1.0;
 	criticalOffset.y *= 1.0;
 
-	let animation = JSON.parse(parameters["Animation"])
+	let animation = JSON.parse(parameters["Animation"]);
 	animation.displacement = JSON.parse(animation["displacement"]);
 	animation.displacement.x *= 1.0;
 	animation.displacement.y *= 1.0;
@@ -129,11 +140,30 @@ DotgMZ.WeaknessPopups.version = "0.11-alpha";
 	animation.initial_scale = JSON.parse(animation["initial scale"]);
 	animation.initial_scale.x *= 1.0;
 	animation.initial_scale.y *= 1.0;
+
+	animation.displacement_animation = JSON.parse(animation["displacement animation"]);
+	animation.displacement_animation *= 1.0;
 	animation.duration *= 1.0;
 
 	//===================================================================
 	// Displaying the popups
 	//===================================================================
+
+	function ease_in(t) {
+		return t * t * t;
+	}
+
+	function ease_out(t) {
+		return (1 - Math.pow(1 - t, 3));
+	}
+
+	function linear(t) {
+		return t;
+	}
+
+	function displacement(t) {
+		return [ease_in, ease_out, linear][animation.displacement_animation](t)
+	}
 
 	function displayFor(target, systemImage, offset) {
 		let actor = DotgMZ.Core.makeActor();
@@ -159,8 +189,9 @@ DotgMZ.WeaknessPopups.version = "0.11-alpha";
 				sprite.scale.y = (1.0 - t) * animation.initial_scale.y + t;
 			} else {
 				let t = (actor.time - 0.2 * animation.duration) / (0.8 * animation.duration);
-				let offset_x = (1 - Math.pow(1 - t, 3)) * animation.displacement.x;
-				let offset_y = (1 - Math.pow(1 - t, 3)) * animation.displacement.y;
+				let offset_x = displacement(t) * animation.displacement.x;
+				let offset_y = displacement(t) * animation.displacement.y;
+
 				sprite.x += offset_x;
 				sprite.y += offset_y;
 
