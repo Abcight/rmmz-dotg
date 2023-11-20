@@ -8,7 +8,7 @@ Imported.DotgMZ_WeaknessPopups = true;
 
 var DotgMZ = DotgMZ || {};
 DotgMZ.WeaknessPopups = DotgMZ.WeaknessPopups || {};
-DotgMZ.WeaknessPopups.version = "0.12-alpha";
+DotgMZ.WeaknessPopups.version = "0.13-alpha";
 
 /*~struct~Vector:
  * @param x
@@ -124,24 +124,24 @@ DotgMZ.WeaknessPopups.version = "0.12-alpha";
 	let immuneImage = parameters["Immune Image"];
 	let criticalImage = parameters["Critical Image"];
 
-	let offset = JSON.parse(parameters["Offset"]);
+	let offset = JSON.parse(parameters["Offset"] || `{"x":"0", "y":"0"}`);
 	offset.x *= 1.0;
 	offset.y *= 1.0;
 
-	let criticalOffset = JSON.parse(parameters["Critical Offset"]);
+	let criticalOffset = JSON.parse(parameters["Critical Offset"] || `{"x":"0", "y":"80"}`);
 	criticalOffset.x *= 1.0;
 	criticalOffset.y *= 1.0;
 
-	let animation = JSON.parse(parameters["Animation"]);
-	animation.displacement = JSON.parse(animation["displacement"]);
+	let animation = JSON.parse(parameters["Animation"] || `{"duration":"1"}`);
+	animation.displacement = JSON.parse(animation["displacement"] || `{"x":"-50", "y":"0"}`);
 	animation.displacement.x *= 1.0;
 	animation.displacement.y *= 1.0;
 
-	animation.initial_scale = JSON.parse(animation["initial scale"]);
+	animation.initial_scale = JSON.parse(animation["initial scale"] || `{"x":"1.5", "y":"1.5"}`);
 	animation.initial_scale.x *= 1.0;
 	animation.initial_scale.y *= 1.0;
 
-	animation.displacement_animation = JSON.parse(animation["displacement animation"]);
+	animation.displacement_animation = JSON.parse(animation["displacement animation"] || "1");
 	animation.displacement_animation *= 1.0;
 	animation.duration *= 1.0;
 
